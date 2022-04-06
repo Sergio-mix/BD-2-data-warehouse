@@ -38,4 +38,5 @@ def mostrarDatos():
         print(e)
 
 
-cargarDatos("C:/Users/alejo/IdeaProjects/bd-2 data warehouse/src/resource/doc/fb_emp.xlsx")
+cargarDatos("C:/Users/migue/PycharmProjects/BD-2-data-warehouses/src/resource/doc/fb_emp.xlsx")
+mostrarDatos()

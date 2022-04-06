@@ -1,5 +1,16 @@
 import requests
 import json
+import src.main.python.co.edu.unbosque.textclassification.data_text as data_text
+
+
+def menuEntrada():
+    opcion = input("Ingrese la opcion que desea realizar: "
+                   "\n1. Añadir datos"
+                   "\n2. Mostrar datos \n")
+    if opcion == "1":
+        menuAnnadir()
+    elif opcion == "2":
+        opciones(menu())
 
 
 def menuAnnadir():
@@ -9,7 +20,8 @@ def menuAnnadir():
                    "\n3. Añadir venta"
                    "\n4. Añadir ubicacion"
                    "\n5. Añadir temporada"
-                   "\n6. Salir")
+                   "\n6. Añadir Publicaciones"
+                   "\n7. Salir\n")
     if opcion == "1":
         añadirCategoria()
     elif opcion == "2":
@@ -21,6 +33,8 @@ def menuAnnadir():
     elif opcion == "5":
         añadirTemporada()
     elif opcion == "6":
+        añadirPublicaciones()
+    elif opcion == "7":
         print("Saliendo...")
     else:
         print("Opcion no valida")
@@ -48,9 +62,7 @@ def opciones(opcion):
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/temporadas")
         print(response.text)
     elif opcion == "6":
-        response = requests.get(
-            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/publicaciones")
-        print(response.text)
+        mostrarDatosPublicaciones()
     else:
         print("Opcion no valida")
 
@@ -149,6 +161,31 @@ def añadirTemporada():
     print(response.text)
 
 
+def añadirPublicaciones():
+    url = "C:/Users/migue/PycharmProjects/BD-2-data-warehouses/src/resource/doc/fb_emp.xlsx"
+    try:
+        list = data_text.run(url)['datos']
+        print("Cargando datos...")
+        for dato in list:
+            json = {
+                "id": "",
+                "producto": dato["product"],
+                "text": dato["text"],
+                "likes": dato["likes"],
+                "comments": dato["comments"],
+                "shares": dato["shares"],
+                "calificacion": dato["value"],
+                "estado": "A"
+            }
+            requests.post(
+                'https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1'
+                '/publicaciones',
+                data=json)
+        print("Datos cargados")
+    except Exception as e:
+        print(e)
+
+
 def menu():
     opcion = input("Por favor seleccione una opción: "
                    "\n1. Mostrar datos de categoria"
@@ -161,4 +198,16 @@ def menu():
     return opcion
 
 
-opciones(menu())
+def mostrarDatosPublicaciones():
+    print("ENTRO")
+    try:
+        responses = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1"
+            "/publicaciones")
+        returnItems = json.loads(responses.text)["items"]
+        print(returnItems)
+    except Exception as e:
+        print(e)
+
+
+menuEntrada()
