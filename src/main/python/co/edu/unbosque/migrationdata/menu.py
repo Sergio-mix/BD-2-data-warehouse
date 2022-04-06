@@ -133,6 +133,8 @@ def añadirTemporada():
     response = requests.post(url, json=data)
     print(response.text)
 
+
+
 def menu():
 
      opcion = input("Por favor seleccione una opción: "
