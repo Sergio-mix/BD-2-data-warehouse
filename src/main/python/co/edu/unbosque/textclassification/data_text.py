@@ -1,4 +1,4 @@
-import read
+import src.main.python.co.edu.unbosque.textclassification.read as read
 import re
 
 
