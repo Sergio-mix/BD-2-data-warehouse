@@ -1,5 +1,28 @@
 import requests
 import json
+def menuAnnadir():
+    opcion = input("Ingrese la opcion que desea realizar: "
+                 "\n1. Añadir categoria"
+                 "\n2. Añadir producto"
+                 "\n3. Añadir venta"
+                 "\n4. Añadir ubicacion"
+                 "\n5. Añadir temporada"
+                 "\n6. Salir")
+    if opcion == "1":
+        añadirCategoria()
+    elif opcion == "2":
+        añadirProducto()
+    elif opcion == "3":
+        añadirVentas()
+    elif opcion == "4":
+        añadirUbicacion()
+    elif opcion == "5":
+        añadirTemporada()
+    elif opcion == "6":
+        print("Saliendo...")
+    else:
+        print("Opcion no valida")
+
 def opciones(opcion):
     if opcion == "1":
         response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias")
