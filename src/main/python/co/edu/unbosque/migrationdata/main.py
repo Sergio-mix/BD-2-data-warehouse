@@ -6,7 +6,7 @@ import json
 def cargarDatos(url):
     try:
         list = data_text.run(url)['datos']
-        print("Cargando...")
+        print("Cargando datos...")
         for dato in list:
             json = {
                 "id": "",
