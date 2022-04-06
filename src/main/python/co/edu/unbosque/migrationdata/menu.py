@@ -1,13 +1,15 @@
 import requests
 import json
+
+
 def menuAnnadir():
     opcion = input("Ingrese la opcion que desea realizar: "
-                 "\n1. Añadir categoria"
-                 "\n2. Añadir producto"
-                 "\n3. Añadir venta"
-                 "\n4. Añadir ubicacion"
-                 "\n5. Añadir temporada"
-                 "\n6. Salir")
+                   "\n1. Añadir categoria"
+                   "\n2. Añadir producto"
+                   "\n3. Añadir venta"
+                   "\n4. Añadir ubicacion"
+                   "\n5. Añadir temporada"
+                   "\n6. Salir")
     if opcion == "1":
         añadirCategoria()
     elif opcion == "2":
@@ -23,27 +25,35 @@ def menuAnnadir():
     else:
         print("Opcion no valida")
 
+
 def opciones(opcion):
     if opcion == "1":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias")
         print(response.text)
     elif opcion == "2":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/productos")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/productos")
         print(response.text)
     elif opcion == "3":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ventas")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ventas")
         print(response.text)
     elif opcion == "4":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ubicaciones")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ubicaciones")
         print(response.text)
     elif opcion == "5":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/temporadas")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/temporadas")
         print(response.text)
     elif opcion == "6":
-        response = requests.get("https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/publicaciones")
+        response = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/publicaciones")
         print(response.text)
     else:
         print("Opcion no valida")
+
 
 def añadirCategoria():
     categoria = input("Ingrese el nombre de la categoria: ")
@@ -58,9 +68,8 @@ def añadirCategoria():
     print(response.text)
     print("entro")
 
+
 def eliminarCategoria(id):
-
-
     url = "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias"
     data = {
         "id": id,
@@ -68,6 +77,7 @@ def eliminarCategoria(id):
     response = requests.delete(url, json=data)
     print(response.text)
     print("entro")
+
 
 def añadirProducto():
     producto = input("Ingrese el nombre del producto: ")
@@ -86,6 +96,7 @@ def añadirProducto():
     }
     response = requests.post(url, json=data)
     print(response.text)
+
 
 def añadirVentas():
     producto = input("Ingrese el nombre del producto: ")
@@ -106,6 +117,8 @@ def añadirVentas():
     }
     response = requests.post(url, json=data)
     print(response.text)
+
+
 def añadirUbicacion():
     departamento = input("Ingrese el nombre del departamento: ")
     ciudad = input("Ingrese el nombre de la ciudad: ")
@@ -119,6 +132,8 @@ def añadirUbicacion():
     }
     response = requests.post(url, json=data)
     print(response.text)
+
+
 def añadirTemporada():
     temporada = input("Ingrese el nombre de la temporada: ")
     fecha = input("Ingrese la fecha de la temporada ej:2020-01-01: ")
@@ -134,16 +149,16 @@ def añadirTemporada():
     print(response.text)
 
 
-
 def menu():
+    opcion = input("Por favor seleccione una opción: "
+                   "\n1. Mostrar datos de categoria"
+                   "\n2. Mostrar datos de productos"
+                   "\n3. Mostrar datos de ventas"
+                   "\n4. Mostrar datos de ubicacion"
+                   "\n5. Mostrar datos de temporada"
+                   "\n6. Mostrar datos de publicaciones"
+                   "\n_______________________________________\n")
+    return opcion
 
-     opcion = input("Por favor seleccione una opción: "
-               "\n1. Mostrar datos de categoria"
-               "\n2. Mostrar datos de productos"
-               "\n3. Mostrar datos de ventas"
-               "\n4. Mostrar datos de ubicacion"
-               "\n5. Mostrar datos de temporada"
-               "\n6. Mostrar datos de publicaciones"
-               "\n_______________________________________\n")
-     return opcion
+
 opciones(menu())
