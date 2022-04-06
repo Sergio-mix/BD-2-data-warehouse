@@ -199,7 +199,6 @@ def menu():
 
 
 def mostrarDatosPublicaciones():
-    print("ENTRO")
     try:
         responses = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1"
@@ -208,6 +207,3 @@ def mostrarDatosPublicaciones():
         print(returnItems)
     except Exception as e:
         print(e)
-
-
-menuEntrada()
