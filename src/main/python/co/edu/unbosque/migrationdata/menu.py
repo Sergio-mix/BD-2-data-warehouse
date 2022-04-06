@@ -3,6 +3,11 @@ import json
 import src.main.python.co.edu.unbosque.textclassification.data_text as data_text
 
 
+def imprimirDatos(data):
+    for item in data:
+        print(item)
+
+
 def menuEntrada():
     opcion = input("Ingrese la opcion que desea realizar: "
                    "\n1. Añadir datos"
@@ -41,30 +46,40 @@ def menuAnnadir():
 
 
 def opciones(opcion):
+    print("Mostrando datos...")
     if opcion == "1":
         response = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias")
-        print(response.text)
+        returnItems = json.loads(response.text)["items"]
+        imprimirDatos(returnItems)
     elif opcion == "2":
         response = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/productos")
-        print(response.text)
+        returnItems = json.loads(response.text)["items"]
+        imprimirDatos(returnItems)
     elif opcion == "3":
         response = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ventas")
-        print(response.text)
+        returnItems = json.loads(response.text)["items"]
+        imprimirDatos(returnItems)
     elif opcion == "4":
         response = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/ubicaciones")
-        print(response.text)
+        returnItems = json.loads(response.text)["items"]
+        imprimirDatos(returnItems)
     elif opcion == "5":
         response = requests.get(
             "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/temporadas")
-        print(response.text)
+        returnItems = json.loads(response.text)["items"]
+        imprimirDatos(returnItems)
     elif opcion == "6":
-        mostrarDatosPublicaciones()
+        responses = requests.get(
+            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/"
+            "/publicaciones")
+        returnItems = json.loads(responses.text)["items"]
+        imprimirDatos(returnItems)
     else:
-        print("Opcion no valida")
+        imprimirDatos("Opcion no valida")
 
 
 def añadirCategoria():
@@ -78,17 +93,6 @@ def añadirCategoria():
     }
     response = requests.post(url, json=data)
     print(response.text)
-    print("entro")
-
-
-def eliminarCategoria(id):
-    url = "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1/categorias"
-    data = {
-        "id": id,
-    }
-    response = requests.delete(url, json=data)
-    print(response.text)
-    print("entro")
 
 
 def añadirProducto():
@@ -196,14 +200,3 @@ def menu():
                    "\n6. Mostrar datos de publicaciones"
                    "\n_______________________________________\n")
     return opcion
-
-
-def mostrarDatosPublicaciones():
-    try:
-        responses = requests.get(
-            "https://gf45e9f189895df-data1warehouse.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/data/v1"
-            "/publicaciones")
-        returnItems = json.loads(responses.text)["items"]
-        print(returnItems)
-    except Exception as e:
-        print(e)
